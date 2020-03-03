@@ -11,6 +11,19 @@ az extension update --name aks-preview
 ```bash
 az feature register --namespace Microsoft.ContainerService --name SpotPoolPreview
 ```
+
+___Output___ 
+```bash
+{
+  "id": "/subscriptions/1111-1111-4afd-111-1111111/providers/Microsoft.Features/providers/Microsoft.ContainerService/features/SpotPoolPreview",
+  "name": "Microsoft.ContainerService/SpotPoolPreview",
+  "properties": {
+    "state": "Registered"
+  },
+  "type": "Microsoft.Features/providers/features"
+}
+```
+
 ## Create a Spot nodepool
 ```bash
 az aks nodepool add -g gustav-aks --cluster-name gustav-aks-15 -n spotpool1 --priority Spot --spot-max-price -1 --verbose
