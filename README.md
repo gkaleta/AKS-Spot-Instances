@@ -4,7 +4,7 @@
 ```bash
 Facts before you start:
 
--Spot pools cannot be primary pool /n
+-Spot pools cannot be primary pool
 -Spot needs to be VMSS based
 -Spot pools cannot be upgraded
 -Spot pools cannot change ScaleSetPriority after creation - recreation is needed
