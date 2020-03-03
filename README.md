@@ -107,3 +107,75 @@ NAME                                STATUS   ROLES   AGE   VERSION   LABELS
 aks-spotpool1-22572309-vmss000002   Ready    agent   69m   v1.15.7   agentpool=spotpool1,beta.kubernetes.io/arch=amd64,beta.kubernetes.io/instance-type=Standard_DS2_v2,beta.kubernetes.io/os=linux,failure-domain.beta.kubernetes.io/region=westeurope,failure-domain.beta.kubernetes.io/zone=0,kubernetes.azure.com/cluster=MC_gustav-aks_gustav-aks-15_westeurope,kubernetes.azure.com/role=agent,kubernetes.io/arch=amd64,kubernetes.io/hostname=aks-spotpool1-22572309-vmss000002,kubernetes.io/os=linux,kubernetes.io/role=agent,node-role.kubernetes.io/agent=,scalesetpriority=spot,storageprofile=managed,storagetier=Premium_LRS
 ```
 
+## Quick demo with a random container
+```Bash
+Kubectl apply -f nginx.yyaml 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: test
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+  nodeSelector:
+    agentpool: spotpool1
+```
+
+```Bash
+# Container details container
+
+Name:         nginx
+Namespace:    default
+Priority:     0
+Node:         aks-spotpool1-22572309-vmss000002/10.240.0.128
+Start Time:   Tue, 03 Mar 2020 14:45:49 +0100
+Labels:       env=test
+Annotations:  kubectl.kubernetes.io/last-applied-configuration:
+                {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"labels":{"env":"test"},"name":"nginx","namespace":"default"},"spec":{"contai...
+Status:       Running
+IP:           10.240.0.129
+IPs:          <none>
+Containers:
+  nginx:
+    Container ID:   docker://5aee4da6eaab9f58ad6f5005c6dfe4fbcf6f0f6ec46d51d74b86b2bc408a6cbb
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:380eb808e2a3b0dd954f92c1cae2f845e6558a15037efefcabc5b4e03d666d03
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Tue, 03 Mar 2020 14:45:58 +0100
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-qz8sf (ro)
+Conditions:
+  Type              Status
+  Initialized       True 
+  Ready             True 
+  ContainersReady   True 
+  PodScheduled      True 
+Volumes:
+  default-token-qz8sf:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-qz8sf
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  agentpool=spotpool1
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age   From                                        Message
+  ----    ------     ----  ----                                        -------
+  Normal  Scheduled  2m    default-scheduler                           Successfully assigned default/nginx to aks-spotpool1-22572309-vmss000002
+  Normal  Pulling    119s  kubelet, aks-spotpool1-22572309-vmss000002  Pulling image "nginx"
+  Normal  Pulled     114s  kubelet, aks-spotpool1-22572309-vmss000002  Successfully pulled image "nginx"
+  Normal  Created    111s  kubelet, aks-spotpool1-22572309-vmss000002  Created container nginx
+  Normal  Started    111s  kubelet, aks-spotpool1-22572309-vmss000002  Started container nginx
+  ```
+  
