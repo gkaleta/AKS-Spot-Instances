@@ -4,17 +4,23 @@
 
 ### Make sure you have the latest Az extension AKS-preview updated:
 
-'''
+```bash
 az extension update --name aks-preview
-'''
+```
 ### Enable feature flag:
+```bash
 az feature register --namespace Microsoft.ContainerService --name SpotPoolPreview
-
+```
 ## Create a Spot nodepool
+```bash
 az aks nodepool add -g gustav-aks --cluster-name gustav-aks-15 -n spotpool1 --priority Spot --spot-max-price -1 --verbose
+```
 or
+```bash
 az aks nodepool add -g gustav-aks --cluster-name gustav-aks-15 -n spotpool1 --priority Spot --spot-max-price 1.12345 --verbose
+```
 
+```bash
 Output:
 {
   "agentPoolType": "VirtualMachineScaleSets",
@@ -44,3 +50,4 @@ Output:
   "vmSize": "Standard_DS2_v2",
   "vnetSubnetId": null
 }
+```
