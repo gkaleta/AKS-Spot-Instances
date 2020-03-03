@@ -50,6 +50,15 @@ ___Output___
 ```bash
 az aks nodepool add -g gustav-aks --cluster-name gustav-aks-15 -n spotpool1 --priority Spot --spot-max-price -1 --verbose
 ```
+
+```bash
+**Note** Using '--spot-max-price -1' will give you the following:
+
+1) The default price will be up-to on-demand.
+2) The instance won't be evicted based on price.
+3) The price for the instance will be the current price for Spot or the price for a standard instance, which ever is less, as long as there is capacity and quota available.
+```
+
 or
 ```bash
 az aks nodepool add -g gustav-aks --cluster-name gustav-aks-15 -n spotpool1 --priority Spot --spot-max-price 1.12345 --verbose
