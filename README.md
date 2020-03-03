@@ -109,7 +109,7 @@ aks-spotpool1-22572309-vmss000002   Ready    agent   69m   v1.15.7   agentpool=s
 
 ## Quick demo with a random container
 ```Bash
-Kubectl apply -f nginx.yyaml 
+Kubectl apply -f nginx.yaml 
 
 apiVersion: v1
 kind: Pod
@@ -127,7 +127,7 @@ spec:
 ```
 
 ```Bash
-# Container details container
+# Container details
 
 Name:         nginx
 Namespace:    default
